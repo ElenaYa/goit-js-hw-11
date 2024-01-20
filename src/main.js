@@ -26,7 +26,7 @@ const lightbox = new SimpleLightbox('.gallery a', {
 });
   
 async function searchImg(params) {
-  try {
+
         try {
             const response = await fetch(`https://pixabay.com/api/?${params}`);
             if (!response.ok) {
@@ -39,7 +39,7 @@ async function searchImg(params) {
                         html +
                         `<li class="gallery-item">
         <a href=${hit.largeImageURL}> 
-          <img class="gallery-link" src =${hit.webformatURL} alt=${hit.tags} width='360' height='200'/>
+          <img class="gallery-link" src ='${hit.webformatURL}' alt='${hit.tags}' width='360' height='200'/>
         </a>
         <ul class='gallery-statistic'>
                   <li><p class='statistic'>💗 Likes<span>${hit.likes}</span></p></li>
@@ -63,9 +63,15 @@ async function searchImg(params) {
                 });
             }
         } catch (error) {
-            console.log(error.message);
+            iziToast.error({ 
+            position: 'topRight',
+            message: 'Sorry, there was an error fetching the data. Please try again!',
+            backgroundColor: '#ef4040',
+            messageSize: '16px',
+            messageColor: '#fafafb',
+        });
         }
-    } finally {
+     finally {
       loader.style.display = 'none';
     }
 }
